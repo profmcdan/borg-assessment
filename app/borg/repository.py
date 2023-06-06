@@ -33,31 +33,25 @@ class UrlRepository:
         return hero
 
     async def get(self, id: str | UUID) -> Url:
-        statement = select(
-            Url
-        ).where(
-            Url.id == id
-        )
+        statement = select(Url).where(Url.id == id)
         results = await self.session.execute(statement=statement)
         url = results.scalar_one_or_none()  # type: Url | None
         return url
 
     async def get_by_code(self, code: str) -> Url:
-        statement = select(
-            Url
-        ).where(
-            Url.code == code
-        )
+        statement = select(Url).where(Url.code == code)
+        results = await self.session.execute(statement=statement)
+        url = results.scalar_one_or_none()
+        return url
+
+    async def get_by_short_url(self, short_url: str) -> Url:
+        statement = select(Url).where(Url.short_url == short_url)
         results = await self.session.execute(statement=statement)
         url = results.scalar_one_or_none()
         return url
 
     async def get_by_original_url(self, original_url: str) -> Url:
-        statement = select(
-            Url
-        ).where(
-            Url.original_url == original_url
-        )
+        statement = select(Url).where(Url.original_url == original_url)
         results = await self.session.execute(statement=statement)
         url = results.scalar_one_or_none()
         return url
@@ -76,11 +70,7 @@ class UrlRepository:
         return url
 
     async def delete(self, id: str | UUID) -> bool:
-        statement = delete(
-            Url
-        ).where(
-            Url.id == id
-        )
+        statement = delete(Url).where(Url.id == id)
 
         await self.session.execute(statement=statement)
         await self.session.commit()
