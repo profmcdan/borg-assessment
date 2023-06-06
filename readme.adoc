@@ -21,7 +21,7 @@ uvicorn app.main:app --reload
 Then you can access the solution at http://localhost:8000/docs
 
 == How to test the solution
-You can call the api/v1/urls endpoint to create a new short url. You can also call the api/v1/urls/{short_url} endpoint to get the original url and redirect to the original url.
+You can call the api/v1/urls endpoint to create a new short url. You can also call the api/v1/urls/code/{code} endpoint to get the original url object by the code, and api/v1/urls/get-url/redirect?short_url=[some url] to get the objects by the short url itself.
 
 == How to deploy the solution
 
