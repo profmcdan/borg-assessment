@@ -12,6 +12,8 @@ This project builds a url shortener using FastAPI, Postgres, and Redis. The goal
 
 The solution is built using docker-compose. To run the solution, you will need to have docker and docker-compose installed on your machine. Once you have docker and docker-compose installed, you can run the following command to start the solution:
 
+Copy the content of .env.sample into a new file called .env and update the values of the environment variables.
+
 [source,bash]
 docker compose up -d
 uvicorn app.main:app --reload
