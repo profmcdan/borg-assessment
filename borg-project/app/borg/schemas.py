@@ -16,7 +16,7 @@ class UrlRead(UrlBase, UUIDModel, TimestampModel):
     pass
 
     # class Config:
-    #     schema_extra = {"example": ex_hero_read}
+    #     schema_extra = {"example": ex_url_read}
 
 
 class UrlCreate(SQLModel):

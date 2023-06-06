@@ -8,6 +8,7 @@ from typing import List
 from urllib.parse import unquote
 from app.core.models import StatusMessage
 from app.core.redis import cache
+
 from .repository import UrlRepository
 from .dependencies import get_bityl_repository
 from .schemas import UrlCreate, UrlPatch, UrlRead, UrlBase

@@ -3,7 +3,7 @@ from httpx import AsyncClient
 from sqlalchemy import insert, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.bitly.models import Url
+from app.borg.models import Url
 
 
 @pytest.mark.asyncio
