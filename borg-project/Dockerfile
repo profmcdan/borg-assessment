@@ -18,13 +18,13 @@ RUN poetry config virtualenvs.create false
 RUN poetry install
 
 # Copy entrypoint.sh
-COPY ./docker/entrypoint.sh /entrypoint.sh
+COPY ./entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
 
 # COPY ./alembic.ini /alembic.ini
 # COPY ./migrations /migrations
 
-COPY ./app /app
+COPY . .
 
 # ENTRYPOINT [ "/entrypoint.sh" ]
