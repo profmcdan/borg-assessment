@@ -1,0 +1,25 @@
+:toc:
+:project_name: borg assessment
+:icons: font
+:source-highlighter: prettify
+:tags: guides,meta
+
+= Problem Statement
+
+This project builds a url shortener using FastAPI, Postgres, and Redis. The goal is to build a simple url shortener that can be used to shorten urls and redirect to the original url.
+
+== How to run the solution
+
+The solution is built using docker-compose. To run the solution, you will need to have docker and docker-compose installed on your machine. Once you have docker and docker-compose installed, you can run the following command to start the solution:
+
+[source,bash]
+docker compose up -d
+uvicorn app.main:app --reload
+
+Then you can access the solution at http://localhost:8000/docs
+
+== How to test the solution
+You can call the api/v1/urls endpoint to create a new short url. You can also call the api/v1/urls/{short_url} endpoint to get the original url and redirect to the original url.
+
+== How to deploy the solution
+
