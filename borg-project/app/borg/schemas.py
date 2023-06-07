@@ -1,6 +1,8 @@
 from datetime import datetime
+from pydantic import ValidationError, validator
 from sqlmodel import SQLModel
 from app.core.models import TimestampModel, UUIDModel
+from .validators import is_valid_url
 
 
 class UrlBase(SQLModel):

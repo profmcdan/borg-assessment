@@ -13,6 +13,7 @@ from .repository import UrlRepository
 from .dependencies import get_bityl_repository
 from .schemas import UrlCreate, UrlPatch, UrlRead, UrlBase
 from .services import generate_short_url, clean_url
+from .validators import is_valid_url
 
 router = APIRouter()
 
@@ -31,10 +32,16 @@ async def get_urls(
 async def create_url(
     data: UrlCreate, repo: UrlRepository = Depends(get_bityl_repository)
 ):
+    if not is_valid_url(data.original_url):
+        raise HTTPException(
+            status_code=http_status.HTTP_400_BAD_REQUEST,
+            detail={"original_url": "Invalid url"},
+        )
     found = await repo.get_by_original_url(clean_url(data.original_url))
     if found is not None:
         raise HTTPException(
-            status_code=http_status.HTTP_409_CONFLICT, detail="Url already exists"
+            status_code=http_status.HTTP_409_CONFLICT,
+            detail={"original_url": "Url already exists"},
         )
 
     generated_url = generate_short_url(data.original_url)
@@ -92,6 +99,11 @@ async def get_url_by_short_code(
     redis=Depends(cache),
 ):
     short_url = unquote(short_url)
+    if not is_valid_url(short_url):
+        raise HTTPException(
+            status_code=http_status.HTTP_400_BAD_REQUEST, detail="Invalid url"
+        )
+
     code = short_url.split("/")[-1]
 
     if (cached_profile := redis.get(f"url_{str(code)}")) is not None:
@@ -114,6 +126,12 @@ async def update_url(
     repo: UrlRepository = Depends(get_bityl_repository),
     redis=Depends(cache),
 ):
+    if not is_valid_url(data.original_url):
+        raise HTTPException(
+            status_code=http_status.HTTP_400_BAD_REQUEST,
+            detail={"original_url": "Invalid Url"},
+        )
+
     url = await repo.get(id=id)
     if url is None:
         raise HTTPException(
